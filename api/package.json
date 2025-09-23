@@ -4,14 +4,22 @@
     "express": "^5.1.0",
     "prisma": "^6.16.2"
   },
+  "script": {
+    "dev": "bun --hot src/index.ts",
+    "build": "bun build src/index.ts",
+    "serve": "bun run src/index.ts"
+  },
   "name": "api",
   "module": "index.ts",
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/express": "^5.0.3",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   }
 }

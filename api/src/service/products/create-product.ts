@@ -13,7 +13,7 @@ export const createProductService = async (data: IProducts) => {
     }
     const response = await prisma.products.create({ data: data });
 
-    return { messag: "Product created successfully", data: response };
+    return { messages: "Product created successfully", data: response };
   } catch (error) {
     throw error;
   }

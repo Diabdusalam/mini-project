@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+
 }
 
 datasource db {
@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum productIs_Sell {
+enum ProductStatus {
   Dijual
   Tidak_Dijual
 }
@@ -23,8 +23,8 @@ model Products {
   id         String         @id @default(uuid())
   name       String         @db.VarChar(255)
   price      Decimal        @db.Decimal(10, 2)
-  stcok      Int
-  is_sell    productIs_Sell
+  stock      Int
+  is_sell    ProductStatus
   created_at DateTime       @default(now())
   update_at  DateTime       @updatedAt
 }

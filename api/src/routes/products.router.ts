@@ -12,6 +12,7 @@ export class ProductsRouter {
   private intializeRoutes(): void {
     this.router.post("/", this.productsController.createProduct);
     this.router.get("/", this.productsController.getProducts);
+     this.router.delete("/:id", this.productsController.deleteProducts);
   }
   public getRouter(): Router {
     return this.router;

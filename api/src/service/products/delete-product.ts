@@ -1,11 +1,11 @@
 import { IProducts } from "../../domain/models/products.models";
 import prisma from "../../prisma";
 
-export const deleteProductService = async (id:string) => {
+export const deleteProductService = async (id: string) => {
   try {
     const existingProduct = await prisma.products.findFirst({
       where: {
-       id:id
+        id: id,
       },
     });
     if (!existingProduct) {
@@ -15,9 +15,9 @@ export const deleteProductService = async (id:string) => {
       where: {
         id: id,
       },
-    })
+    });
 
-    return { messages: `Product ${response.name} deleted successfully`, };
+    return { messages: `Product ${response.name} deleted successfully` };
   } catch (error) {
     throw error;
   }

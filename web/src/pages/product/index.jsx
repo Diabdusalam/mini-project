@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import ModalFailed from "../../componnet/modal-failed.jsx";
 import ModalSucess from "../../componnet/modal-sucess";
@@ -9,8 +9,9 @@ import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
 import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
 import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
 import setDetailProducts from "../../modules/product/hook/use-get-products";
-import { Plus, SquarePen } from "lucide-react";
+import { MoveDownIcon, MoveUpIcon, Plus, SquarePen } from "lucide-react";
 import EditProduct from "./edit/index.jsx";
+import { useForm } from "react-hook-form";
 export default function Product() {
   const {
     openModalSucess,
@@ -20,14 +21,18 @@ export default function Product() {
   } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const [sort_product, setSortProduct] = useState(undefined);
-  const [sort_price, setSortPrice] = useState(undefined);
-  const [sort_stock, setSortStock] = useState(undefined);
+  const { watch, setValue } = useForm({
+    values: {
+      sort_product: undefined,
+      sort_price: undefined,
+      sort_stock: undefined,
+    },
+  });
   const { data } = setDetailProducts({
     search: searchQuery,
-    sort_product,
-    sort_price,
-    sort_stock,
+    sort_product: watch("sort_product") ? "asc" : "desc",
+    sort_price: watch("sort_price") ? "asc" : "desc",
+    sort_stock: watch("sort_stock") ? "asc" : "desc",
   });
   const navigate = useNavigate();
   return (
@@ -103,9 +108,49 @@ export default function Product() {
               <thead className="table-light">
                 <tr className="rounded-2">
                   <th className="text-center">No</th>
-                  <th className="text-center">Nama Produk</th>
-                  <th className="text-center">Harga Produk</th>
-                  <th className="text-center">Jumlah Stock</th>
+                  <th className="text-center">
+                    <div
+                      onClick={() =>
+                        setValue("sort_product", !!!watch("sort_product"))
+                      }
+                    >
+                      <span>Nama Produk</span>
+                      {watch("sort_product") === "asc" ? (
+                        <MoveUpIcon color="#514E4E" size={16} />
+                      ) : (
+                        <MoveDownIcon color="#514E4E" size={16} />
+                      )}
+                    </div>
+                  </th>
+                  <th className="text-center">
+                    <div
+                      onClick={() =>
+                        setValue("sort_price", !!!watch("sort_price"))
+                      }
+                    >
+                      <span>Harga Produk</span>
+                      {watch("sort_price") === "asc" ? (
+                        <MoveUpIcon color="#514E4E" size={16} />
+                      ) : (
+                        <MoveDownIcon color="#514E4E" size={16} />
+                      )}
+                    </div>
+                  </th>
+                  <th className="text-center">
+                    <div
+                      onClick={() =>
+                        setValue("sort_stock", !!!watch("sort_stock"))
+                      }
+                    >
+                      <span> Jumlah Stock</span>
+                      {watch("sort_stock") === "asc" ? (
+                        <MoveUpIcon color="#514E4E" size={16} />
+                      ) : (
+                        <MoveDownIcon color="#514E4E" size={16} />
+                      )}
+                    </div>
+                    ck
+                  </th>
                   <th className="text-center">Status Produk</th>
                   <th className="text-center" style={{ width: "0" }}>
                     Action

@@ -7,9 +7,10 @@ const setDetailProducts = ({
   sort_stock = null,
   enabled = true,
 }) => {
+  const sortBy = sort_product || sort_price || sort_stock;
   return useQuery({
-    queryKey: ["getProducts", search, sort_product, sort_price, sort_stock],
-    queryFn: () => getProducts(search, sort_product, sort_price, sort_stock),
+    queryKey: ["getProducts", search, sortBy],
+    queryFn: () => getProducts(search, sortBy),
     enabled,
     keepPreviousData: true,
   });

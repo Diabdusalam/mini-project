@@ -1,5 +1,7 @@
-import { use, useState } from "react";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { MoveDownIcon, MoveUpIcon, Plus, SquarePen } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ModalFailed from "../../componnet/modal-failed.jsx";
 import ModalSucess from "../../componnet/modal-sucess";
 import { useModal } from "../../hook/use-context.jsx";
@@ -9,9 +11,6 @@ import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
 import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
 import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
 import setDetailProducts from "../../modules/product/hook/use-get-products";
-import { MoveDownIcon, MoveUpIcon, Plus, SquarePen } from "lucide-react";
-import EditProduct from "./edit/index.jsx";
-import { useForm } from "react-hook-form";
 export default function Product() {
   const {
     openModalSucess,

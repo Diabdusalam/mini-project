@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "86f7a6a1-e9dc-4941-af1c-13fd9a4cfe97",
+		"name": "mini_projects",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48718183",
+		"_collection_link": "https://diabdusalamrafi-5661012.postman.co/workspace/Dito-Abdusala-Rafi's-Workspace~f6c80e4b-f85d-415b-8aa7-f8b1796dbc9d/collection/48718183-86f7a6a1-e9dc-4941-af1c-13fd9a4cfe97?action=share&source=collection_link&creator=48718183"
+	},
+	"item": [
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dev}}/products",
+					"host": [
+						"{{dev}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "sort_product",
+							"value": null,
+							"description": "asc|desc",
+							"disabled": true
+						},
+						{
+							"key": "sort_price",
+							"value": "desc",
+							"description": "asc|desc",
+							"disabled": true
+						},
+						{
+							"key": "sort_stock",
+							"value": null,
+							"description": "asc|desc",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "batu",
+							"description": "string",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{dev}}/products/d1a7cc78-ec8c-4fcc-9e55-0d7bbd92b5eb"
+			},
+			"response": []
+		},
+		{
+			"name": "update Product",
+			"request": {
+				"method": "PUT",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"oli samping\",\r\n    \"price\": 20000,\r\n    \"stock\": 10,\r\n    \"is_sell\":\"Tidak_Dijual\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{dev}}/products"
+			},
+			"response": []
+		}
+	]
+}

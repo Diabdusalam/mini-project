@@ -1,12 +1,20 @@
 import { Plus, SquarePen, Trash } from "lucide-react";
+import { useState } from "react";
 import ModalDelete from "../../componnet/modal-delete";
 import ModalSucess from "../../componnet/modal-sucess";
-import ViewModelProduct from "./_view-model-product";
-import setDetailProducts from "../../modules/product/hook/use-get-products";
+import { useModal } from "../../hook/use-context.jsx";
 import formatRupiahFromString from "../../hook/use-format-rp";
-import { useState } from "react";
+import setDetailProducts from "../../modules/product/hook/use-get-products";
+import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
 export default function Product() {
-  const model = ViewModelProduct();
+  const {
+    openModalDelete,
+    openModalSucess,
+    openModalFailed,
+    setOpenModalDelete,
+    setOpenModalSucess,
+    setOpenModalFailed,
+  } = useModal();
   const [searchQuery, setSearchQuery] = useState("");
   const { data } = setDetailProducts({ search: searchQuery });
   return (
@@ -33,8 +41,8 @@ export default function Product() {
           style={{ borderColor: "#f3f3f6" }}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <div className="fw-bold fs-5">Products</div>
-            <button className="btn btn-sm bg-primary rounded-2 p-2 text-white max-md ">
+            <div className="fw-bold fs-2">Products</div>
+            <button className="btn btn-sm bg-primary rounded-2 p-2 text-white max-md fw-semibold ">
               <Plus style={{ height: "20px", width: "20px" }} /> Add Products
             </button>
           </div>
@@ -66,14 +74,19 @@ export default function Product() {
               </thead>
               <tbody>
                 {data?.map((item, index) => (
-                  <tr>
-                    <td style={{ width: "0" }} className="text-center">
+                  <tr key={index}>
+                    <td
+                      style={{ width: "0" }}
+                      className="text-center align-middle"
+                    >
                       {index + 1}
                     </td>
-                    <td>{item.name}</td>
-                    <td>{formatRupiahFromString(item.price)}</td>
-                    <td>{item.stock}</td>
-                    <td className="text-center m-x-auto">
+                    <td className="align-middle">{item.name}</td>
+                    <td className="align-middle">
+                      {formatRupiahFromString(item.price)}
+                    </td>
+                    <td className="align-middle">{item.stock}</td>
+                    <td className="text-center m-x-auto align-middle text-center">
                       <div className="form-check form-switch t">
                         <input className="form-check-input" type="checkbox" />
                       </div>
@@ -82,54 +95,27 @@ export default function Product() {
                       <button
                         className="btn btn-sm  text-white  rounded-2 p-2"
                         style={{ backgroundColor: "#f97316" }}
-                        onClick={() => model.setOpenModalDelete(true)}
+                        onClick={() => setOpenModalDelete(true)}
                       >
                         <SquarePen style={{ height: "20px", width: "20px" }} />
                       </button>
-                      <button
-                        className="btn btn-sm btn-danger rounded-2 p-2"
-                        onClick={() => model.setOpenModalDelete(true)}
-                      >
-                        <Trash style={{ height: "20px", width: "20px" }} />
-                      </button>
+                      <HandelDeleteProduct id={item.id} />
                     </td>
                   </tr>
                 ))}
-
-                {/* <tr>
-                  <td style={{ width: "0" }}>1</td>
-                  <td>Batu</td>
-                  <td>Rp.10.000</td>
-                  <td>10</td>
-                  <td className="text-center"></td>
-                  <td className="d-flex gap-2 text-center justify-content-center">
-                    <button
-                      className="btn btn-sm  text-white  rounded-2 p-2"
-                      style={{ backgroundColor: "#f97316" }}
-                    >
-                      <SquarePen style={{ height: "20px", width: "20px" }} />
-                    </button>
-                    <button className="btn btn-sm btn-danger rounded-2 p-2">
-                      <Trash style={{ height: "20px", width: "20px" }} />
-                    </button>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
           </div>
         </div>
       </section>
-      <ModalDelete
-        show={model.openModalDelete}
-        onClose={() => model.setOpenModalDelete(false)}
-      />
+
       <ModalSucess
-        show={model.openModalSucess}
-        onClose={() => model.setOpenModalSucess(false)}
+        show={openModalSucess}
+        onClose={() => setOpenModalSucess(false)}
       />
       <ModalDelete
-        show={model.openModalFailed}
-        onClose={() => model.setOpenModalFailed(false)}
+        show={openModalFailed}
+        onClose={() => setOpenModalFailed(false)}
       />
     </>
   );

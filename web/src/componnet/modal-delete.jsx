@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
 import { Button, Modal } from "react-bootstrap";
-export default function ModalDelete({ show, onClose }) {
+export default function ModalDelete({ show, onClose, onSubmit }) {
   if (!show) return null;
   return (
     <>
@@ -38,6 +38,7 @@ export default function ModalDelete({ show, onClose }) {
               Cancel
             </Button>
             <Button
+              onClick={onSubmit}
               style={{
                 backgroundImage: "linear-gradient(to right, #3b82f6, #8b5cf6)",
                 border: "none",

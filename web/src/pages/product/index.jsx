@@ -9,32 +9,39 @@ import setDetailProducts from "../../modules/product/hook/use-get-products";
 import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
 import ModalFailed from "../../componnet/modal-failed.jsx";
 import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
+import { useSearchParams } from "react-router-dom";
+import { editProductService } from "../../modules/product/api/edit-product.jsx";
 export default function Product() {
   const { openModalSucess,openModalFailed,setOpenModalSucess,setOpenModalFailed,} = useModal();
+   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const { data, } = setDetailProducts({ search: searchQuery });
+  const { data} = setDetailProducts({ search: searchQuery });
   return (
     <>
       <section className="p-4 flex-column w-full gap-4">
+        <div className="fw-bold fs-2 text-center  ">MINI PROJECT</div>
         <section className="p-3 d-flex  gap-4 justify-content-center">
           <div
-            className="text-center p-1 shadow rounded-2"
+            className={`text-center p-2 shadow rounded-2 gap-2 d-flex flex-column ${ searchParams.get("table") != "v2" ? "bg-primary text-white" : "bg-light"}`} 
             style={{ width: "100%", backgroundColor: "#f3f3f6" }}
+            onClick={() => setSearchParams({table: "v1"})}
           >
-            <h5>Versi Redirect</h5>
-            <p>Style 1 About Something</p>
+            <h5>Versi Modal</h5>
+            <p>Versi Modal Tambah Produk dan Edit Produk menggunakan Popup Modal</p>
           </div>
           <div
-            className="text-center p-1 shadow rounded-2 "
-            style={{ width: "100%", backgroundColor: "#f3f3f6" }}
+            className={`text-center p-1 shadow rounded-2 ${searchParams.get("table")  === "v2" ? "bg-primary text-white" : "bg-light" }`}
+            style={{ width: "100%", backgroundColor: "#f3f3f6" }}  
+            onClick={() => setSearchParams({table: "v2"})}
           >
-            <h5>Style 2</h5>
-            <p>Style 2 About Something</p>
+            <h5>Versi Redirect</h5>
+            <p>Versi Redirect Tambah Produk dan Edit Produk ketika di klik pindah halaman</p>
           </div>
         </section>
         <div
           className={`w-full border rounded-2 p-4 gap-3 shadow d-flex flex-column`}
           style={{ borderColor: "#f3f3f6" }}
+          
         >
           <div className="d-flex justify-content-between align-items-center">
             <div className="fw-bold fs-2">Products</div>
@@ -84,9 +91,9 @@ export default function Product() {
                       <div className="d-flex flex-column gap-2">
                         <select
                           className="form-select rounded-2"
-                          value={item.is_sell}
-                        >
-                          <option>Select Status</option>
+                          value={item.is_sell === "Dijual" ? "Dijual" : "Tidak_Dijual"}
+                          onChange={(e) => {editProductService (item.id,{is_sell: e.target.value})}}
+                        >                       
                           <option value={"Dijual"}>Dijual</option>
                           <option value={"Tidak_Dijual"}>Tidak Dijual</option>
                         </select>

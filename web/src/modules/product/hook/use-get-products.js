@@ -12,7 +12,6 @@ const setDetailProducts = ({
     queryFn: () => getProducts(search, sort_product, sort_price, sort_stock),
     enabled,
     keepPreviousData: true,
-    staleTime: 0,
   });
 };
 export default setDetailProducts;

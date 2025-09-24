@@ -1,38 +1,41 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
-import { useState } from "react";
+import { SquarePen } from "lucide-react";
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import Input from "../../../componnet/input";
 import { useModal } from "../../../hook/use-context";
-import { addProductService } from "../api/add-product";
-export default function HandelAddProduct() {
-  const [openAdd, setOpenAdd] = useState(false);
+import { use, useEffect, useState } from "react";
+import Input from "../../../componnet/input";
+import { editProductService } from "../api/edit-product";
+
+export default function HandelEditProduct({ item }) {
+  console.log(item, "isi");
   const { setOpenModalSucess, setOpenModalFailed } = useModal();
-  const { setValue, formState, handleSubmit } = useForm({
+  const [openEdit, setOpenEdit] = useState(false);
+  const {  register, handleSubmit } = useForm({
     values: {
-      name: "",
-      price: 0,
-      stock: 0,
-      is_sell: "",
+      name: item.name,
+      price: Number(item.price),
+      stock: Number(item.stock),
+      is_sell: item.is_sell,
     },
   });
+
   const queryClient = useQueryClient();
   const onSubmit = async (data) => {
-    try {
-      const payload = {
+ 
+    try {const payload = {
         name: data.name,
         price: Number(data.price),
         stock: Number(data.stock),
         is_sell: data.is_sell,
       };
-
-      await addProductService(payload);
-      setOpenAdd(false);
+      await editProductService(item.id,payload);
+      setOpenEdit(false);
       setOpenModalSucess(true);
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
     } catch (error) {
-      setOpenAdd(false);
+      console.log(error);
+      setOpenEdit(false);
       setOpenModalFailed(true);
     }
   };
@@ -40,15 +43,13 @@ export default function HandelAddProduct() {
   return (
     <>
       <button
-        className="btn btn-sm  rounded-2 p-2 text-white max-md fw-semibold"
-        style={{
-          backgroundImage: "linear-gradient(to right, #3b82f6, #8b5cf6)",
-        }}
-        onClick={() => setOpenAdd(true)}
+        className="btn btn-sm  text-white  rounded-2 p-2"
+        style={{ backgroundColor: "#f97316" }}
+        onClick={() => setOpenEdit(true)}
       >
-        <Plus style={{ height: "20px", width: "20px" }} /> Add Products
+        <SquarePen style={{ height: "20px", width: "20px" }} />
       </button>
-      <Modal show={openAdd} centered onHide={() => setOpenAdd(false)}>
+      <Modal show={openEdit} centered onHide={() => setOpenEdit(false)}>
         <Modal.Body>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -62,26 +63,26 @@ export default function HandelAddProduct() {
                 name="Nama Produk"
                 placeholder={"Input Nama Produk"}
                 type={"text"}
-                onChange={(e) => setValue("name", e.target.value)}
+                {...register("name")}
               />
               <Input
                 name="Harga Produk"
                 placeholder={"Input Harga Produk"}
                 type={"number"}
-                onChange={(e) => setValue("price", e.target.value)}
+                {...register("price")}
               />
               <Input
                 name="Stok Produk"
                 placeholder={"Input Stok Produk"}
                 type={"number"}
-                onChange={(e) => setValue("stock", e.target.value)}
+                {...register("stock")}
               />
               <div className="d-flex flex-column gap-2">
                 <div className="justify-align-content-start d-flex fw-semibold">
                   Status Product
                 </div>
                 <select
-                  onChange={(e) => setValue("is_sell", e.target.value)}
+                  {...register("is_sell")}
                   className="form-select rounded-2"
                 >
                   <option>Select Status</option>{" "}
@@ -94,7 +95,7 @@ export default function HandelAddProduct() {
               <Button
                 variant="light"
                 className="px-1 py-2"
-                onClick={() => setOpenAdd(false)}
+                onClick={() => setOpenEdit(false)}
                 style={{
                   backgroundColor: "#ef4444",
                   color: "white",
@@ -107,7 +108,7 @@ export default function HandelAddProduct() {
               <Button
                 type="submit"
                 className="px-1 py-2"
-                onClick={() => onSubmit()}
+                onClick={onSubmit}
                 style={{
                   backgroundImage:
                     "linear-gradient(to right, #3b82f6, #8b5cf6)",

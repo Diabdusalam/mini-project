@@ -8,16 +8,11 @@ import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.j
 import setDetailProducts from "../../modules/product/hook/use-get-products";
 import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
 import ModalFailed from "../../componnet/modal-failed.jsx";
+import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
 export default function Product() {
-  const {
-    openModalSucess,
-    openModalFailed,
-    setOpenModalDelete,
-    setOpenModalSucess,
-    setOpenModalFailed,
-  } = useModal();
-  const [searchQuery, setSearchQuery] = useState("");
-  const { data } = setDetailProducts({ search: searchQuery });
+  const { openModalSucess,openModalFailed,setOpenModalSucess,setOpenModalFailed,} = useModal();
+  const [searchQuery, setSearchQuery] = useState(undefined);
+  const { data, } = setDetailProducts({ search: searchQuery });
   return (
     <>
       <section className="p-4 flex-column w-full gap-4">
@@ -86,18 +81,19 @@ export default function Product() {
                     </td>
                     <td className="align-middle">{item.stock}</td>
                     <td className="text-center m-x-auto align-middle text-center">
-                      <div className="form-check form-switch t">
-                        <input className="form-check-input" type="checkbox" />
+                      <div className="d-flex flex-column gap-2">
+                        <select
+                          className="form-select rounded-2"
+                          value={item.is_sell}
+                        >
+                          <option>Select Status</option>
+                          <option value={"Dijual"}>Dijual</option>
+                          <option value={"Tidak_Dijual"}>Tidak Dijual</option>
+                        </select>
                       </div>
                     </td>
                     <td className="d-flex gap-2 text-center justify-content-center">
-                      <button
-                        className="btn btn-sm  text-white  rounded-2 p-2"
-                        style={{ backgroundColor: "#f97316" }}
-                        onClick={() => setOpenModalDelete(true)}
-                      >
-                        <SquarePen style={{ height: "20px", width: "20px" }} />
-                      </button>
+                      <HandelEditProduct item={item} />
                       <HandelDeleteProduct id={item.id} />
                     </td>
                   </tr>
@@ -108,14 +104,8 @@ export default function Product() {
         </div>
       </section>
 
-      <ModalSucess
-        show={openModalSucess}
-        onClose={() => setOpenModalSucess(false)}
-      />
-      <ModalFailed
-        show={openModalFailed}
-        onClose={() => setOpenModalFailed(false)}
-      />
+      <ModalSucess show={openModalSucess} onClose={() => setOpenModalSucess(false)} />
+      <ModalFailed show={openModalFailed}  onClose={() => setOpenModalFailed(false)}/>
     </>
   );
 }

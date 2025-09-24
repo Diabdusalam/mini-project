@@ -6,13 +6,9 @@ export const getProducts = async (
   sort_price,
   sort_stock
 ) => {
-  try {
-    const response = await axiosInstance.get(`/products`, {
-      params: { search, sort_product, sort_price, sort_stock },
-    });
-    console.log("response", response);
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get(`/products`, {
+    params: { search, sort_product, sort_price, sort_stock },
+  });
+  console.log("response", response);
+  return response;
 };

@@ -1,14 +1,15 @@
-import { Plus, SquarePen, Trash } from "lucide-react";
+import { SquarePen } from "lucide-react";
 import { useState } from "react";
 import ModalDelete from "../../componnet/modal-delete";
 import ModalSucess from "../../componnet/modal-sucess";
 import { useModal } from "../../hook/use-context.jsx";
 import formatRupiahFromString from "../../hook/use-format-rp";
-import setDetailProducts from "../../modules/product/hook/use-get-products";
 import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
+import setDetailProducts from "../../modules/product/hook/use-get-products";
+import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
+import ModalFailed from "../../componnet/modal-failed.jsx";
 export default function Product() {
   const {
-    openModalDelete,
     openModalSucess,
     openModalFailed,
     setOpenModalDelete,
@@ -25,7 +26,7 @@ export default function Product() {
             className="text-center p-1 shadow rounded-2"
             style={{ width: "100%", backgroundColor: "#f3f3f6" }}
           >
-            <h5>Style 1</h5>
+            <h5>Versi Redirect</h5>
             <p>Style 1 About Something</p>
           </div>
           <div
@@ -42,9 +43,7 @@ export default function Product() {
         >
           <div className="d-flex justify-content-between align-items-center">
             <div className="fw-bold fs-2">Products</div>
-            <button className="btn btn-sm bg-primary rounded-2 p-2 text-white max-md fw-semibold ">
-              <Plus style={{ height: "20px", width: "20px" }} /> Add Products
-            </button>
+            <HandelAddProduct />
           </div>
           <div
             className="d-flex  gap-4 justify-content-between text-center p-2 rounded-2"
@@ -113,7 +112,7 @@ export default function Product() {
         show={openModalSucess}
         onClose={() => setOpenModalSucess(false)}
       />
-      <ModalDelete
+      <ModalFailed
         show={openModalFailed}
         onClose={() => setOpenModalFailed(false)}
       />

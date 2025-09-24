@@ -4,14 +4,14 @@ import { deleteProduct } from "../api/delete-product";
 import { Trash } from "lucide-react";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 
-export default function HandelDeleteProduct({ id }) {
+export default function HandelEditProduct() {
   const {
     openModalDelete,
     setOpenModalDelete,
     setOpenModalSucess,
     setOpenModalFailed,
   } = useModal();
-  console.log(id);
+
   const queryClient = useQueryClient();
   const handleDelete = async () => {
     setOpenModalDelete(true);

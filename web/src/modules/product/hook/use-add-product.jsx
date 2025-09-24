@@ -93,7 +93,7 @@ export default function HandelAddProduct() {
             <div className="d-flex justify-content-center d-lg-flex gap-4 mt-2">
               <Button
                 variant="light"
-                className="px-1 py-2"
+                className="px-1 py-2 rounded-2"
                 onClick={() => setOpenAdd(false)}
                 style={{
                   backgroundColor: "#ef4444",
@@ -106,7 +106,7 @@ export default function HandelAddProduct() {
               </Button>
               <Button
                 type="submit"
-                className="px-1 py-2"
+                className="px-1 py-2 rounded-2"
                 onClick={() => onSubmit()}
                 style={{
                   backgroundImage:

@@ -11,7 +11,7 @@ export default function HandelEditProduct({ item }) {
   console.log(item, "isi");
   const { setOpenModalSucess, setOpenModalFailed } = useModal();
   const [openEdit, setOpenEdit] = useState(false);
-  const {  register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm({
     values: {
       name: item.name,
       price: Number(item.price),
@@ -22,14 +22,14 @@ export default function HandelEditProduct({ item }) {
 
   const queryClient = useQueryClient();
   const onSubmit = async (data) => {
- 
-    try {const payload = {
+    try {
+      const payload = {
         name: data.name,
         price: Number(data.price),
         stock: Number(data.stock),
         is_sell: data.is_sell,
       };
-      await editProductService(item.id,payload);
+      await editProductService(item.id, payload);
       setOpenEdit(false);
       setOpenModalSucess(true);
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
@@ -94,7 +94,7 @@ export default function HandelEditProduct({ item }) {
             <div className="d-flex justify-content-center d-lg-flex gap-4 mt-2">
               <Button
                 variant="light"
-                className="px-1 py-2"
+                className="px-1 py-2 rounded-2"
                 onClick={() => setOpenEdit(false)}
                 style={{
                   backgroundColor: "#ef4444",
@@ -107,7 +107,7 @@ export default function HandelEditProduct({ item }) {
               </Button>
               <Button
                 type="submit"
-                className="px-1 py-2"
+                className="px-1 py-2 rounded-2"
                 onClick={onSubmit}
                 style={{
                   backgroundImage:

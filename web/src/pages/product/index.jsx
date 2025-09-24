@@ -1,51 +1,82 @@
-import { SquarePen } from "lucide-react";
 import { useState } from "react";
-import ModalDelete from "../../componnet/modal-delete";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import ModalFailed from "../../componnet/modal-failed.jsx";
 import ModalSucess from "../../componnet/modal-sucess";
 import { useModal } from "../../hook/use-context.jsx";
 import formatRupiahFromString from "../../hook/use-format-rp";
-import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
-import setDetailProducts from "../../modules/product/hook/use-get-products";
-import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
-import ModalFailed from "../../componnet/modal-failed.jsx";
-import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
-import { useSearchParams } from "react-router-dom";
 import { editProductService } from "../../modules/product/api/edit-product.jsx";
+import HandelAddProduct from "../../modules/product/hook/use-add-product.jsx";
+import HandelDeleteProduct from "../../modules/product/hook/use-delete-product.jsx";
+import HandelEditProduct from "../../modules/product/hook/use-edit-product.jsx";
+import setDetailProducts from "../../modules/product/hook/use-get-products";
+import { Plus, SquarePen } from "lucide-react";
+import EditProduct from "./edit/index.jsx";
 export default function Product() {
-  const { openModalSucess,openModalFailed,setOpenModalSucess,setOpenModalFailed,} = useModal();
-   const [searchParams, setSearchParams] = useSearchParams();
+  const {
+    openModalSucess,
+    openModalFailed,
+    setOpenModalSucess,
+    setOpenModalFailed,
+  } = useModal();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const { data} = setDetailProducts({ search: searchQuery });
+  const { data } = setDetailProducts({ search: searchQuery });
+  const navigate = useNavigate();
   return (
     <>
       <section className="p-4 flex-column w-full gap-4">
         <div className="fw-bold fs-2 text-center  ">MINI PROJECT</div>
         <section className="p-3 d-flex  gap-4 justify-content-center">
           <div
-            className={`text-center p-2 shadow rounded-2 gap-2 d-flex flex-column ${ searchParams.get("table") != "v2" ? "bg-primary text-white" : "bg-light"}`} 
+            className={`text-center p-2 shadow rounded-2 gap-2 d-flex flex-column ${
+              searchParams.get("table") != "v2"
+                ? "bg-primary text-white"
+                : "bg-light"
+            }`}
             style={{ width: "100%", backgroundColor: "#f3f3f6" }}
-            onClick={() => setSearchParams({table: "v1"})}
+            onClick={() => setSearchParams({ table: "v1" })}
           >
             <h5>Versi Modal</h5>
-            <p>Versi Modal Tambah Produk dan Edit Produk menggunakan Popup Modal</p>
+            <p>
+              Versi Modal Tambah Produk dan Edit Produk menggunakan Popup Modal
+            </p>
           </div>
           <div
-            className={`text-center p-1 shadow rounded-2 ${searchParams.get("table")  === "v2" ? "bg-primary text-white" : "bg-light" }`}
-            style={{ width: "100%", backgroundColor: "#f3f3f6" }}  
-            onClick={() => setSearchParams({table: "v2"})}
+            className={`text-center p-1 shadow rounded-2 ${
+              searchParams.get("table") === "v2"
+                ? "bg-primary text-white"
+                : "bg-light"
+            }`}
+            style={{ width: "100%", backgroundColor: "#f3f3f6" }}
+            onClick={() => setSearchParams({ table: "v2" })}
           >
             <h5>Versi Redirect</h5>
-            <p>Versi Redirect Tambah Produk dan Edit Produk ketika di klik pindah halaman</p>
+            <p>
+              Versi Redirect Tambah Produk dan Edit Produk ketika di klik pindah
+              halaman
+            </p>
           </div>
         </section>
         <div
           className={`w-full border rounded-2 p-4 gap-3 shadow d-flex flex-column`}
           style={{ borderColor: "#f3f3f6" }}
-          
         >
           <div className="d-flex justify-content-between align-items-center">
             <div className="fw-bold fs-2">Products</div>
-            <HandelAddProduct />
+            {searchParams.get("table") !== "v2" ? (
+              <HandelAddProduct />
+            ) : (
+              <button
+                className="btn btn-sm  rounded-2 p-2 text-white max-md fw-semibold"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #3b82f6, #8b5cf6)",
+                }}
+                onClick={() => navigate("/add")}
+              >
+                <Plus style={{ height: "20px", width: "20px" }} /> Add Products
+              </button>
+            )}
           </div>
           <div
             className="d-flex  gap-4 justify-content-between text-center p-2 rounded-2"
@@ -91,16 +122,37 @@ export default function Product() {
                       <div className="d-flex flex-column gap-2">
                         <select
                           className="form-select rounded-2"
-                          value={item.is_sell === "Dijual" ? "Dijual" : "Tidak_Dijual"}
-                          onChange={(e) => {editProductService (item.id,{is_sell: e.target.value})}}
-                        >                       
+                          value={
+                            item.is_sell === "Dijual"
+                              ? "Dijual"
+                              : "Tidak_Dijual"
+                          }
+                          onChange={(e) => {
+                            editProductService(item.id, {
+                              is_sell: e.target.value,
+                            });
+                          }}
+                        >
                           <option value={"Dijual"}>Dijual</option>
                           <option value={"Tidak_Dijual"}>Tidak Dijual</option>
                         </select>
                       </div>
                     </td>
                     <td className="d-flex gap-2 text-center justify-content-center">
-                      <HandelEditProduct item={item} />
+                      {searchParams.get("table") !== "v2" ? (
+                        <HandelEditProduct item={item} />
+                      ) : (
+                        <button
+                          className="btn btn-sm  text-white  rounded-2 p-2"
+                          style={{ backgroundColor: "#f97316" }}
+                          onClick={() => navigate("/add?id=" + item.id)}
+                        >
+                          <SquarePen
+                            style={{ height: "20px", width: "20px" }}
+                          />
+                        </button>
+                      )}
+
                       <HandelDeleteProduct id={item.id} />
                     </td>
                   </tr>
@@ -111,8 +163,14 @@ export default function Product() {
         </div>
       </section>
 
-      <ModalSucess show={openModalSucess} onClose={() => setOpenModalSucess(false)} />
-      <ModalFailed show={openModalFailed}  onClose={() => setOpenModalFailed(false)}/>
+      <ModalSucess
+        show={openModalSucess}
+        onClose={() => setOpenModalSucess(false)}
+      />
+      <ModalFailed
+        show={openModalFailed}
+        onClose={() => setOpenModalFailed(false)}
+      />
     </>
   );
 }

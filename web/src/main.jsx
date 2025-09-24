@@ -1,10 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 
-createRoot(document.getElementById('root')).render(
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Product from "./pages/product";
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Product />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
+);

@@ -20,7 +20,15 @@ export default function Product() {
   } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const { data } = setDetailProducts({ search: searchQuery });
+  const [sort_product, setSortProduct] = useState(undefined);
+  const [sort_price, setSortPrice] = useState(undefined);
+  const [sort_stock, setSortStock] = useState(undefined);
+  const { data } = setDetailProducts({
+    search: searchQuery,
+    sort_product,
+    sort_price,
+    sort_stock,
+  });
   const navigate = useNavigate();
   return (
     <>

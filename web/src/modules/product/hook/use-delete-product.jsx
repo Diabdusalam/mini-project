@@ -11,7 +11,7 @@ export default function HandelDeleteProduct({ id }) {
     setOpenModalSucess,
     setOpenModalFailed,
   } = useModal();
-  console.log(id);
+
   const queryClient = useQueryClient();
   const handleDelete = async () => {
     setOpenModalDelete(true);

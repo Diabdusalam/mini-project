@@ -27,11 +27,12 @@ export default function Product() {
       sort_stock: undefined,
     },
   });
+
   const { data } = setDetailProducts({
     search: searchQuery,
-    sort_product: watch("sort_product") ? "asc" : "desc",
-    sort_price: watch("sort_price") ? "asc" : "desc",
-    sort_stock: watch("sort_stock") ? "asc" : "desc",
+    ...(watch("sort_product") !== undefined && {sort_product: watch("sort_product") ? "asc" : "desc"}),
+    ...(watch("sort_price")  !== undefined && {sort_price: watch("sort_price") ? "asc" : "desc"}),
+    ...(watch("sort_stock") !== undefined && {sort_stock: watch("sort_stock")  ? "asc" : "desc"}),
   });
   const navigate = useNavigate();
   return (
@@ -110,11 +111,10 @@ export default function Product() {
                   <th className="text-center">
                     <div
                       onClick={() =>
-                        setValue("sort_product", !!!watch("sort_product"))
-                      }
+                        setValue("sort_product", !watch("sort_product"))}
                     >
                       <span>Nama Produk</span>
-                      {watch("sort_product") === "asc" ? (
+                      {watch("sort_product")  ? (
                         <MoveUpIcon color="#514E4E" size={16} />
                       ) : (
                         <MoveDownIcon color="#514E4E" size={16} />
@@ -122,13 +122,9 @@ export default function Product() {
                     </div>
                   </th>
                   <th className="text-center">
-                    <div
-                      onClick={() =>
-                        setValue("sort_price", !!!watch("sort_price"))
-                      }
-                    >
+                    <div onClick={() =>setValue("sort_price", !watch("sort_price"))}>
                       <span>Harga Produk</span>
-                      {watch("sort_price") === "asc" ? (
+                      {watch("sort_price") ? (
                         <MoveUpIcon color="#514E4E" size={16} />
                       ) : (
                         <MoveDownIcon color="#514E4E" size={16} />
@@ -136,19 +132,15 @@ export default function Product() {
                     </div>
                   </th>
                   <th className="text-center">
-                    <div
-                      onClick={() =>
-                        setValue("sort_stock", !!!watch("sort_stock"))
-                      }
+                    <div onClick={() => setValue("sort_stock", !!!watch("sort_stock"))}
                     >
                       <span> Jumlah Stock</span>
-                      {watch("sort_stock") === "asc" ? (
+                      {watch("sort_stock") ? (
                         <MoveUpIcon color="#514E4E" size={16} />
                       ) : (
                         <MoveDownIcon color="#514E4E" size={16} />
                       )}
                     </div>
-                    ck
                   </th>
                   <th className="text-center">Status Produk</th>
                   <th className="text-center" style={{ width: "0" }}>

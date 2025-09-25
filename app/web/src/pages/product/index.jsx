@@ -20,7 +20,7 @@ export default function Product() {
   } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const { watch, setValue } = useForm({
+  const { watch, setValue,register } = useForm({
     values: {
       sort_product: undefined,
       sort_price: undefined,
@@ -166,11 +166,8 @@ export default function Product() {
                       <div className="d-flex flex-column gap-2">
                         <select
                           className="form-select rounded-2"
-                          value={
-                            item.is_sell === "Dijual"
-                              ? "Dijual"
-                              : "Tidak_Dijual"
-                          }
+                  
+                          defaultValue={ item.is_sell  === "Dijual" ? "Dijual" : "Tidak_Dijual"}
                           onChange={(e) => {
                             editProductService(item.id, {
                               is_sell: e.target.value,
@@ -196,7 +193,6 @@ export default function Product() {
                           />
                         </button>
                       )}
-
                       <HandelDeleteProduct id={item.id} />
                     </td>
                   </tr>

@@ -1,10 +1,10 @@
 import { Trash2 } from "lucide-react";
 import { Button, Modal } from "react-bootstrap";
-export default function ModalDelete({ show, onClose, onSubmit }) {
+export default function ModalDelete({ show, onClose, onSubmit, id }) {
   if (!show) return null;
   return (
     <>
-      <Modal show={show} onHide={onClose} centered >
+      <Modal show={show} onHide={onClose} centered>
         <Modal.Body className="text-center p-3">
           <div
             className="mx-auto d-flex justify-content-center align-items-center mb-3"

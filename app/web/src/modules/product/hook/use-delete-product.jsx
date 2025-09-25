@@ -1,20 +1,13 @@
-import { useModal } from "../../../hook/use-context";
-import ModalDelete from "../../../componnet/modal-delete";
-import { deleteProduct } from "../api/delete-product";
+import { useQueryClient } from "@tanstack/react-query";
 import { Trash } from "lucide-react";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import ModalDelete from "../../../componnet/modal-delete";
+import { useModal } from "../../../hook/use-context";
+import { deleteProduct } from "../api/delete-product";
 import { useState } from "react";
 
 export default function HandelDeleteProduct({ id }) {
-  //  const [openModalDelete,setOpenModalDelete] = useState(false);
-  const {
-    openModalDelete,
-    setOpenModalDelete,
-    setOpenModalSucess,
-    setOpenModalFailed,
-  } = useModal();
-
-  console.log(id);
+  const { setOpenModalSucess, setOpenModalFailed } = useModal();
+  const [openModalDelete, setOpenModalDelete] = useState(false);
   const queryClient = useQueryClient();
   const handleDelete = async () => {
     setOpenModalDelete(true);
@@ -38,6 +31,7 @@ export default function HandelDeleteProduct({ id }) {
         <Trash style={{ height: "20px", width: "20px" }} />
       </button>
       <ModalDelete
+        id={id}
         onSubmit={handleDelete}
         show={openModalDelete}
         onClose={() => setOpenModalDelete(false)}

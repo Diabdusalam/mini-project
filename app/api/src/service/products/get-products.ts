@@ -9,7 +9,7 @@ export const getProductsService = async (query: paramsQuery) => {
     const whereClause: Prisma.ProductsWhereInput = search
       ? { name: { contains:search } }
       : {};
-    const product = await prisma.products.findMany({
+    const products = await prisma.products.findMany({
       where: whereClause,
       orderBy: [
         { name: sort_product },
@@ -18,11 +18,11 @@ export const getProductsService = async (query: paramsQuery) => {
       ],
     });
 
-    if (product.length === 0) {
+    if (products.length === 0) {
       return { messages: "Product not found", data: [] };
     }
-    console.log(product);
-    return { messages: "success get Products", data: product };
+    console.log(products);
+    return { messages: "success get Products", data: products };
   } catch (error) {
     throw error;
   }

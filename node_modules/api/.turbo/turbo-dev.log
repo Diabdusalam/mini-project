@@ -1,0 +1,66 @@
+$ bun --hot src/index.ts
+Listening on port 8000
+[Object: null prototype] {
+  sort_product: "desc",
+}
+prisma:info Starting a mysql pool with 13 connections.
+prisma:query SELECT `mini_project`.`Products`.`id`, `mini_project`.`Products`.`name`, `mini_project`.`Products`.`price`, `mini_project`.`Products`.`stock`, `mini_project`.`Products`.`is_sell`, `mini_project`.`Products`.`created_at`, `mini_project`.`Products`.`update_at` FROM `mini_project`.`Products` WHERE 1=1 ORDER BY `mini_project`.`Products`.`name` DESC
+[
+  {
+    id: "5bc7888b-c80e-4c51-bf78-240d5a906a91",
+    name: "produvt123",
+    price: 1234400,
+    stock: 45,
+    is_sell: "Tidak_Dijual",
+    created_at: 2025-09-24T15:30:33.181Z,
+    update_at: 2025-09-24T15:30:33.181Z,
+  }, {
+    id: "ce5c8b79-f30f-4524-9dae-17e621dcf01a",
+    name: "product123",
+    price: 12313,
+    stock: 4,
+    is_sell: "Dijual",
+    created_at: 2025-09-24T14:34:05.965Z,
+    update_at: 2025-09-24T14:34:05.965Z,
+  }, {
+    id: "32d7be43-18c1-4970-a1fb-0ab81b629edd",
+    name: "Product12",
+    price: 120000,
+    stock: 15,
+    is_sell: "Dijual",
+    created_at: 2025-09-24T14:05:27.830Z,
+    update_at: 2025-09-24T15:07:52.905Z,
+  }, {
+    id: "f4ee1088-d343-43ef-b68d-80de69b86cd2",
+    name: "product1",
+    price: 16000,
+    stock: 80,
+    is_sell: "Dijual",
+    created_at: 2025-09-24T14:33:33.917Z,
+    update_at: 2025-09-24T14:33:33.917Z,
+  }, {
+    id: "52b63a5d-578e-437e-97d2-338082e2454d",
+    name: "product Abc",
+    price: 16000,
+    stock: 60,
+    is_sell: "Dijual",
+    created_at: 2025-09-24T14:35:15.790Z,
+    update_at: 2025-09-24T15:10:23.448Z,
+  }, {
+    id: "acf24f56-9c6b-40c7-8e47-6ad6d1745c10",
+    name: "Produckt 1",
+    price: 12000,
+    stock: 20,
+    is_sell: "Tidak_Dijual",
+    created_at: 2025-09-24T14:10:14.084Z,
+    update_at: 2025-09-24T14:10:14.084Z,
+  }, {
+    id: "96872e7d-f92b-41dc-990c-e40e5f63f92a",
+    name: "Produc 12",
+    price: 15000,
+    stock: 14,
+    is_sell: "Tidak_Dijual",
+    created_at: 2025-09-24T14:32:28.008Z,
+    update_at: 2025-09-24T14:32:28.008Z,
+  }, {
+    id: "16a052be-9c63-4214-9931-fef698e908d2",

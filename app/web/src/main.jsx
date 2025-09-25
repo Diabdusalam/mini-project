@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Product from "./pages/product";
 import AddProduct from "./pages/product/add";
+import EditProduct from "./pages/product/edit";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,7 +18,7 @@ createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/" element={<Product />} />
             <Route path="add" element={<AddProduct />} />
-            <Route path="edit" element={<AddProduct />} />
+            <Route path="edit" element={<EditProduct />} />
           </Routes>
         </BrowserRouter>
       </ModalProvider>

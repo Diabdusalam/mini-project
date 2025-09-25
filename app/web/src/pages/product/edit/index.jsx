@@ -21,33 +21,33 @@ export default function EditProduct() {
             className=" fw-bold justify-content-center d-flex items-center"
             style={{ fontSize: "30px" }}
           >
-            Add Product
+            Edit Product
           </h5>
           <div className="d-flex flex-column gap-3">
             <Input
               name="Nama Produk"
               placeholder={"Input Nama Produk"}
               type={"text"}
-              onChange={(e) => model.setValue("name", e.target.value)}
+              {...model.register("name")}
             />
             <Input
               name="Harga Produk"
               placeholder={"Input Harga Produk"}
               type={"number"}
-              onChange={(e) => model.setValue("price", e.target.value)}
+              {...model.register("price")}
             />
             <Input
               name="Stok Produk"
               placeholder={"Input Stok Produk"}
               type={"number"}
-              onChange={(e) => model.setValue("stock", e.target.value)}
+              {...model.register("stock")}
             />
             <div className="d-flex flex-column gap-2">
               <div className="justify-align-content-start d-flex fw-semibold">
                 Status Product
               </div>
               <select
-                onChange={(e) => model.setValue("is_sell", e.target.value)}
+                {...model.register("is_sell")}
                 className="form-select rounded-2"
               >
                 <option>Select Status</option>{" "}
@@ -73,11 +73,16 @@ export default function EditProduct() {
       </form>
       <ModalSucess
         show={model.openModalSucess}
-        onClose={() => model.setOpenModalSucess(false)}
+        onClose={() => {
+          model.setOpenModalSucess(false);
+          model.navigate(-1);
+        }}
       />
       <ModalFailed
         show={model.openModalFailed}
-        onClose={() => model.setOpenModalFailed(false)}
+        onClose={() => {
+          model.setOpenModalFailed(false);
+        }}
       />
     </>
   );

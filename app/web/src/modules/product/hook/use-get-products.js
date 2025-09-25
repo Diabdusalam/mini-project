@@ -5,14 +5,14 @@ const setDetailProducts = ({
   sort_product = null,
   sort_price = null,
   sort_stock = null,
-  enabled = true,
+  // enabled = true,
 }) => {
   const sortBy = sort_product || sort_price || sort_stock;
   return useQuery({
     queryKey: ["getProducts", search, sortBy],
     queryFn: () => getProducts(search, sortBy),
-    enabled,
-    keepPreviousData: true,
+    // enabled,
+
   });
 };
 export default setDetailProducts;

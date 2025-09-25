@@ -20,7 +20,7 @@ export default function Product() {
   } = useModal();
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(undefined);
-  const { watch, setValue,register } = useForm({
+  const { watch, setValue, register } = useForm({
     values: {
       sort_product: undefined,
       sort_price: undefined,
@@ -30,9 +30,15 @@ export default function Product() {
 
   const { data } = setDetailProducts({
     search: searchQuery,
-    ...(watch("sort_product") !== undefined && {sort_product: watch("sort_product") ? "asc" : "desc"}),
-    ...(watch("sort_price")  !== undefined && {sort_price: watch("sort_price") ? "asc" : "desc"}),
-    ...(watch("sort_stock") !== undefined && {sort_stock: watch("sort_stock")  ? "asc" : "desc"}),
+    ...(watch("sort_product") !== undefined && {
+      sort_product: watch("sort_product") ? "asc" : "desc",
+    }),
+    ...(watch("sort_price") !== undefined && {
+      sort_price: watch("sort_price") ? "asc" : "desc",
+    }),
+    ...(watch("sort_stock") !== undefined && {
+      sort_stock: watch("sort_stock") ? "asc" : "desc",
+    }),
   });
   const navigate = useNavigate();
   return (
@@ -111,10 +117,11 @@ export default function Product() {
                   <th className="text-center">
                     <div
                       onClick={() =>
-                        setValue("sort_product", !watch("sort_product"))}
+                        setValue("sort_product", !watch("sort_product"))
+                      }
                     >
                       <span>Nama Produk</span>
-                      {watch("sort_product")  ? (
+                      {watch("sort_product") ? (
                         <MoveUpIcon color="#514E4E" size={16} />
                       ) : (
                         <MoveDownIcon color="#514E4E" size={16} />
@@ -122,7 +129,11 @@ export default function Product() {
                     </div>
                   </th>
                   <th className="text-center">
-                    <div onClick={() =>setValue("sort_price", !watch("sort_price"))}>
+                    <div
+                      onClick={() =>
+                        setValue("sort_price", !watch("sort_price"))
+                      }
+                    >
                       <span>Harga Produk</span>
                       {watch("sort_price") ? (
                         <MoveUpIcon color="#514E4E" size={16} />
@@ -132,7 +143,10 @@ export default function Product() {
                     </div>
                   </th>
                   <th className="text-center">
-                    <div onClick={() => setValue("sort_stock", !!!watch("sort_stock"))}
+                    <div
+                      onClick={() =>
+                        setValue("sort_stock", !!!watch("sort_stock"))
+                      }
                     >
                       <span> Jumlah Stock</span>
                       {watch("sort_stock") ? (
@@ -150,7 +164,7 @@ export default function Product() {
               </thead>
               <tbody>
                 {data?.map((item, index) => (
-                  <tr key={index}>
+                  <tr key={item.id}>
                     <td
                       style={{ width: "0" }}
                       className="text-center align-middle"
@@ -166,8 +180,11 @@ export default function Product() {
                       <div className="d-flex flex-column gap-2">
                         <select
                           className="form-select rounded-2"
-                  
-                          defaultValue={ item.is_sell  === "Dijual" ? "Dijual" : "Tidak_Dijual"}
+                          defaultValue={
+                            item.is_sell === "Dijual"
+                              ? "Dijual"
+                              : "Tidak_Dijual"
+                          }
                           onChange={(e) => {
                             editProductService(item.id, {
                               is_sell: e.target.value,
@@ -186,7 +203,7 @@ export default function Product() {
                         <button
                           className="btn btn-sm  text-white  rounded-2 p-2"
                           style={{ backgroundColor: "#f97316" }}
-                          onClick={() => navigate("/add?id=" + item.id)}
+                          onClick={() => navigate("/edit?id=" + item.id)}
                         >
                           <SquarePen
                             style={{ height: "20px", width: "20px" }}

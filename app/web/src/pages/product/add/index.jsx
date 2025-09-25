@@ -73,11 +73,15 @@ export default function AddProduct() {
       </form>
       <ModalSucess
         show={model.openModalSucess}
-        onClose={() => model.setOpenModalSucess(false)}
+        onClose={() => {
+          model.setOpenModalSucess(false), model.navigate(-1);
+        }}
       />
       <ModalFailed
         show={model.openModalFailed}
-        onClose={() => model.setOpenModalFailed(false)}
+        onClose={() => {
+          model.setOpenModalFailed(false);
+        }}
       />
     </>
   );

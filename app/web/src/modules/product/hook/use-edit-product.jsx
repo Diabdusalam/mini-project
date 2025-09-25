@@ -56,7 +56,7 @@ export default function HandelEditProduct({ item }) {
             className="text-center  flex-column d-flex gap-4"
           >
             <h5 className=" fw-bold  d-flex justify-align-content-start">
-              Add Product
+              Edit Product
             </h5>
             <div className="d-flex flex-column gap-2">
               <Input

@@ -4,7 +4,7 @@ export default function ModalDelete({ show, onClose, onSubmit }) {
   if (!show) return null;
   return (
     <>
-      <Modal show={show} onHide={onClose} centered backdrop={false}>
+      <Modal show={show} onHide={onClose} centered >
         <Modal.Body className="text-center p-3">
           <div
             className="mx-auto d-flex justify-content-center align-items-center mb-3"

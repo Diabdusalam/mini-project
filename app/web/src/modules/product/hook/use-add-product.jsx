@@ -107,7 +107,6 @@ export default function HandelAddProduct() {
               <Button
                 type="submit"
                 className="px-1 py-2 rounded-2"
-                onClick={() => onSubmit()}
                 style={{
                   backgroundImage:
                     "linear-gradient(to right, #3b82f6, #8b5cf6)",

@@ -3,8 +3,10 @@ import ModalDelete from "../../../componnet/modal-delete";
 import { deleteProduct } from "../api/delete-product";
 import { Trash } from "lucide-react";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 export default function HandelDeleteProduct({ id }) {
+  //  const [openModalDelete,setOpenModalDelete] = useState(false);
   const {
     openModalDelete,
     setOpenModalDelete,
@@ -12,6 +14,7 @@ export default function HandelDeleteProduct({ id }) {
     setOpenModalFailed,
   } = useModal();
 
+  console.log(id);
   const queryClient = useQueryClient();
   const handleDelete = async () => {
     setOpenModalDelete(true);

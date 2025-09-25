@@ -30,7 +30,6 @@ export default function AddProductModel() {
 
       setOpenModalSucess(true);
       queryClient.invalidateQueries({ queryKey: ["getProducts"] });
-      navigate("/");
     } catch (error) {
       setOpenAdd(false);
       setOpenModalFailed(true);
